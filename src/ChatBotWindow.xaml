@@ -1,0 +1,21 @@
+﻿<Window x:Class="DiabloSpeech.ChatBotWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DiabloSpeech"
+        mc:Ignorable="d"
+        Title="ChatBotWindow" Height="357.333" Width="557.333" Closing="Window_Closing">
+    <Grid>
+        <RichTextBox x:Name="messageLog" HorizontalAlignment="Left" Margin="10,10,0,38" Width="400" IsReadOnly="True" VerticalScrollBarVisibility="Visible" FontFamily="Open Sans">
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
+        <TextBox x:Name="messageBox" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Width="320" Height="23" VerticalAlignment="Bottom" TabIndex="1" KeyDown="messageBox_KeyDown"/>
+        <Button x:Name="sendMessageButton" Content="Send" HorizontalAlignment="Left" Margin="335,0,0,10" Width="75" Height="22" VerticalAlignment="Bottom" Click="sendMessageButton_Click"/>
+
+    </Grid>
+</Window>

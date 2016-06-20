@@ -1,0 +1,16 @@
+﻿# Project ignore files
+/src/bin
+/src/obj
+/src/.vs
+/tests/bin
+/tests/obj
+/tools
+/staging
+/builds
+
+*.csproj.user
+
+# Recommended ignores for Visual Studio NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/

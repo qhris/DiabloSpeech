@@ -1,0 +1,4 @@
+[submodule "dependencies/DiabloInterfaceAPI"]
+	path = dependencies/DiabloInterfaceAPI
+	url = https://github.com/Zutatensuppe/DiabloInterfaceAPI/
+
