@@ -1,0 +1,11 @@
+build_script:
+  - ps: .\build.ps1
+
+branches:
+  only:
+    - develop
+    - main
+
+cache:
+  - src\packages -> src\packages.config, tests\packages.config
+  - tools -> tools\packages.config
