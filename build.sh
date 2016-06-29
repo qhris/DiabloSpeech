@@ -15,7 +15,7 @@ MONO_CMD=mono
 
 # Define default arguments.
 SCRIPT="build.cake"
-TARGET="Travis"
+TARGET="CIntegration"
 CONFIGURATION="Release"
 VERBOSITY="verbose"
 DRYRUN=

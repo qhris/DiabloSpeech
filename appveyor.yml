@@ -2,7 +2,7 @@ install:
   - git submodule update --init
 
 build_script:
-  - ps: .\build.ps1
+  - ps: .\build.ps1 -Target "CIntegration"
 
 branches:
   only:

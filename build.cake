@@ -81,7 +81,7 @@ Task("Package-Files")
     Zip(stagingDirectory, packageBuildsDirectory + File(packageName));
 });
 
-Task("Travis")
+Task("CIntegration")
     .IsDependentOn("Run-Unit-Tests");
 
 ///////////////////////////////////////
