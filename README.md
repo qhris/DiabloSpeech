@@ -1,5 +1,7 @@
 # DiabloSpeech
 
+[![Build Status](https://travis-ci.org/qhris/DiabloSpeech.svg?branch=master)](https://travis-ci.org/qhris/DiabloSpeech)
+
 A twitch chat bot for Diablo 2 streamers.
 
 ## Features
