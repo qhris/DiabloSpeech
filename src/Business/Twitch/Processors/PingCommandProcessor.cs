@@ -6,6 +6,9 @@ namespace DiabloSpeech.Business.Twitch.Processors
     {
         public void Process(ITwitchChannelConnection connection, TwitchMessageData data)
         {
+            if (connection == null)
+                throw new System.ArgumentNullException(nameof(connection));
+
             connection.Command("PONG");
             connection.Flush();
         }
