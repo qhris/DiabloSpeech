@@ -9,6 +9,12 @@ A twitch chat bot for Diablo 2 streamers.
 - Ability for users to request item information while running [DiabloInterface](https://github.com/Zutatensuppe/DiabloInterface/).
 - Request leaderboard information directly from [speedrun.com](http://www.speedrun.com/d2lod).
 
+### Commands
+
+- `!wr [class]`: Show [speedrun.com](http://www.speedrun.com/d2lod) leaderboards for class.
+- `!item [location]`: Query DiabloInterface for equipped item stats.
+- `!breakpoints [type] [class]`: Show breakpoints for class `fcr/fhr`.
+
 ## Building
 
 First check the project out locally. We use submodules so don't forget to initialize those.
