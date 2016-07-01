@@ -19,7 +19,7 @@ namespace DiabloSpeech.Business.Chat.Commands
                 return;
             }
 
-            string characterClass = ResolveClassName(data.Arguments[0].ToLowerInvariant());
+            string characterClass = DiabloClassHelper.ResolveClassName(data.Arguments[0]);
             if (string.IsNullOrEmpty(characterClass))
             {
                 chat.SendMessage($"Invalid class name.");
@@ -44,39 +44,6 @@ namespace DiabloSpeech.Business.Chat.Commands
 
             message = $"{ characterClass.CapitalizeFirst() } records: {message}";
             chat.SendMessage(message);
-        }
-
-        string ResolveClassName(string name)
-        {
-            switch (name)
-            {
-                case "ama":
-                case "amazon":
-                    return "amazon";
-                case "assa":
-                case "assassin":
-                case "sin":
-                    return "assassin";
-                case "barb":
-                case "baba":
-                case "useless":
-                case "barbarian":
-                    return "barbarian";
-                case "druid":
-                case "dudu":
-                    return "druid";
-                case "necro":
-                case "necromancer":
-                    return "necromancer";
-                case "pala":
-                case "pally":
-                case "paladin":
-                    return "paladin";
-                case "sorc":
-                case "sorceress":
-                    return "sorceress";
-                default: return null;
-            }
         }
     }
 }

@@ -79,6 +79,8 @@
     <Compile Include="Business\Chat\ChatCommandInfo.cs" />
     <Compile Include="Business\Chat\CommandAliasAttribute.cs" />
     <Compile Include="Business\Chat\ChatCommandFactory.cs" />
+    <Compile Include="Business\Chat\Commands\BreakpointsChatCommand.cs" />
+    <Compile Include="Business\Chat\Commands\DiabloClassHelper.cs" />
     <Compile Include="Business\Chat\Commands\EquipmentChatCommand.cs" />
     <Compile Include="Business\Chat\Commands\WorldRecordChatCommand.cs" />
     <Compile Include="Business\Chat\IChatCommand.cs" />
