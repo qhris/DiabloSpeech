@@ -13,8 +13,14 @@ namespace DiabloSpeech.Business.Twitch.Processors
 
         public void Process(ITwitchChannelConnection connection, TwitchMessageData data)
         {
-            string name = data.Prefix.Split('!')[0];
-            string channel = data.Params.ValueOrDefault(0);
+            if (connection == null)
+                throw new ArgumentNullException(nameof(connection));
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
+            // Extract message data.
+            string name = data.Prefix?.Split('!')[0] ?? "Unknown";
+            string channel = data.Params.ValueOrDefault(0) ?? connection.Channel;
             string message = data.Params.ValueOrDefault(1);
             if (message == null) return;
 

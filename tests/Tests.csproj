@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Twitch\BreakpointsChatCommandTest.cs" />
     <Compile Include="Twitch\JoinCommandProcessorTest.cs" />
+    <Compile Include="Twitch\MessageCommandTest.cs" />
     <Compile Include="Twitch\Mocks\ChatWriterMock.cs" />
     <Compile Include="Twitch\Mocks\TwitchConnectionMock.cs" />
     <Compile Include="Twitch\PingCommandProcessorTest.cs" />
