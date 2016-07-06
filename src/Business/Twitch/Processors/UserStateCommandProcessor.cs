@@ -12,13 +12,24 @@ namespace DiabloSpeech.Business.Twitch.Processors
 
         public void Process(ITwitchChannelConnection connection, TwitchMessageData data)
         {
+            if (connection == null)
+                throw new ArgumentNullException(nameof(connection));
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
             string channel = data.Params.ValueOrDefault(0) ?? connection.Channel;
             if (channel != connection.Channel) return;
 
             // Get formatted user information if possible.
             string name = data.Tags.ValueOrDefault("display-name") ?? connection.Username;
-            string color = data.Tags.ValueOrDefault("color") ?? "Black";
-            var user = new TwitchUser(name, (Color)ColorConverter.ConvertFromString(color));
+            string colorText = data.Tags.ValueOrDefault("color") ?? "Black";
+
+            // Try to get user color.
+            Color color = Colors.Black;
+            try { color = (Color)ColorConverter.ConvertFromString(colorText); }
+            catch (FormatException) { }
+
+            var user = new TwitchUser(name, color);
 
             OnAcquireUserState(user);
         }

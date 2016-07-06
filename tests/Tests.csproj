@@ -70,6 +70,7 @@
     <Compile Include="Twitch\Mocks\TwitchConnectionMock.cs" />
     <Compile Include="Twitch\PingCommandProcessorTest.cs" />
     <Compile Include="Twitch\TwitchMessageParserTest.cs" />
+    <Compile Include="Twitch\UserStateCommandTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
