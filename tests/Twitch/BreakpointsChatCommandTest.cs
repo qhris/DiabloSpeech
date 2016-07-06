@@ -5,9 +5,9 @@ using DiabloSpeech.Business.Chat.Commands;
 using NUnit.Framework;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using tests.Twitch.Mocks;
+using Tests.Twitch.Mocks;
 
-namespace tests.Twitch
+namespace Tests.Twitch
 {
     public class BreakpointsChatCommandTest
     {

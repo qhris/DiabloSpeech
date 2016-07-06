@@ -3,7 +3,7 @@
 using DiabloSpeech.Business.Twitch;
 using System.Collections.Generic;
 
-namespace tests.Twitch.Mocks
+namespace Tests.Twitch.Mocks
 {
     class TwitchConnectionMock : ITwitchChannelConnection
     {

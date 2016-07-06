@@ -1,6 +1,7 @@
 # DiabloSpeech
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dy2orsw74sjtes33/branch/develop?svg=true)](https://ci.appveyor.com/project/qhris/diablospeech/branch/develop)
+[![Coverage Status](https://coveralls.io/repos/github/qhris/DiabloSpeech/badge.svg?branch=develop)](https://coveralls.io/github/qhris/DiabloSpeech?branch=develop)
 
 A twitch chat bot for Diablo 2 streamers.
 

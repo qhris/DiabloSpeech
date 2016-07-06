@@ -3,9 +3,9 @@
 using DiabloSpeech.Business.Twitch;
 using DiabloSpeech.Business.Twitch.Processors;
 using NUnit.Framework;
-using tests.Twitch.Mocks;
+using Tests.Twitch.Mocks;
 
-namespace tests.Twitch
+namespace Tests.Twitch
 {
     public class PingCommandProcessorTest
     {

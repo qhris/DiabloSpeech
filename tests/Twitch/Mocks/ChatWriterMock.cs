@@ -2,7 +2,7 @@
 // See the LICENSE file at the root of the project for more information.
 using DiabloSpeech.Business.Chat;
 
-namespace tests.Twitch.Mocks
+namespace Tests.Twitch.Mocks
 {
     public class ChatWriterMock : IChatWriter
     {

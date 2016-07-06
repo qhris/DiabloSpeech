@@ -9,6 +9,14 @@ branches:
     - develop
     - main
 
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: HokKf9bY+9p0G0Yy6YAIvd4k2BBViy9BVT5FO9RfI544Uky6pzE6FOy2b+Z8yd5p
+
+after_test:
+  - src/packages/OpenCover.4.6.519/tools/OpenCover.Console.exe -target:"src/packages/NUnit.ConsoleRunner.3.4.1/tools/nunit3-console.exe" -targetargs:"tests\bin\Release\tests.dll" -filter:"+[*]* -[Tests*]*" -register:user -output:coverage.xml
+  - src/packages/coveralls.net.0.6.0/tools/csmacnz.Coveralls.exe --opencover -i coverage.xml
+
 cache:
   - src\packages -> src\packages.config, tests\packages.config
   - tools -> tools\packages.config

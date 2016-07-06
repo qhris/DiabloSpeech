@@ -9,6 +9,8 @@
 /builds
 
 *.csproj.user
+/TestResult.xml
+/coverage.xml
 
 # Recommended ignores for Visual Studio NuGet
 *.nupkg
