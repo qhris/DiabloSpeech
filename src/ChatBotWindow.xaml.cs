@@ -29,7 +29,7 @@ namespace DiabloSpeech
         public ChatBotWindow(ITwitchChannelConnection connection)
         {
             if (connection == null)
-                throw new ArgumentNullException("connection");
+                throw new ArgumentNullException(nameof(connection));
 
             InitializeComponent();
             InitializeTwitchClient(connection);

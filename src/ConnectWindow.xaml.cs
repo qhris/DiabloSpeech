@@ -69,7 +69,7 @@ namespace DiabloSpeech
         string EncryptString(string data)
         {
             if (string.IsNullOrEmpty(data))
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             data = data + new string(' ', data.Length % 8);
 
             // Encypt bytes for current user.

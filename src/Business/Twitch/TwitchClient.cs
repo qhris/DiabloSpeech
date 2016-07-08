@@ -55,7 +55,7 @@ namespace DiabloSpeech.Business.Twitch
         public TwitchClient(ITwitchChannelConnection connection)
         {
             if (connection == null)
-                throw new ArgumentNullException("connection");
+                throw new ArgumentNullException(nameof(connection));
             Dispatcher = Dispatcher.CurrentDispatcher;
 
             Connection = connection;

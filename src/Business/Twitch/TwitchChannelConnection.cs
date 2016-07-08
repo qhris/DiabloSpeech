@@ -21,11 +21,11 @@ namespace DiabloSpeech.Business.Twitch
         public TwitchChannelConnection(string username, string channel, string password)
         {
             if (string.IsNullOrEmpty(username))
-                throw new ArgumentNullException("username");
+                throw new ArgumentNullException(nameof(username));
             if (string.IsNullOrEmpty(channel))
-                throw new ArgumentNullException("channel");
+                throw new ArgumentNullException(nameof(channel));
             if (password == null || password.Length == 0)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
 
             Username = username;
 
