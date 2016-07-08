@@ -89,12 +89,15 @@
     <Compile Include="Business\Speedrun\LeaderboardRun.cs" />
     <Compile Include="Business\Speedrun\SpeedrunClient.cs" />
     <Compile Include="Business\TwitchChatWriter.cs" />
+    <Compile Include="Business\Twitch\INetworkStream.cs" />
     <Compile Include="Business\Twitch\ITwitchChannelConnection.cs" />
     <Compile Include="Business\Twitch\ITwitchCommandProcessor.cs" />
+    <Compile Include="Business\Twitch\NetworkStreamTcpAdapter.cs" />
     <Compile Include="Business\Twitch\Processors\JoinCommandProcessor.cs" />
     <Compile Include="Business\Twitch\Processors\MessageCommandProcessor.cs" />
     <Compile Include="Business\Twitch\Processors\PingCommandProcessor.cs" />
     <Compile Include="Business\Twitch\Processors\UserStateCommandProcessor.cs" />
+    <Compile Include="Business\Twitch\TwitchAuthenticationDetails.cs" />
     <Compile Include="Business\Twitch\TwitchChatMessage.cs" />
     <Compile Include="Business\Twitch\TwitchChannelConnection.cs" />
     <Compile Include="Business\Twitch\TwitchClient.cs" />

@@ -2,13 +2,12 @@
 // See the LICENSE file at the root of the project for more information.
 using System;
 using System.IO;
-using System.Net.Sockets;
 
 namespace DiabloSpeech.Business.Twitch
 {
     public class TwitchChannelConnection : IDisposable, ITwitchChannelConnection
     {
-        TcpClient client;
+        INetworkStream networkStream;
         StreamWriter writer;
         StreamReader reader;
 
@@ -18,35 +17,35 @@ namespace DiabloSpeech.Business.Twitch
         public string Username { get; private set; }
         public string Channel { get; private set; }
 
-        public TwitchChannelConnection(string username, string channel, string password)
+        public TwitchChannelConnection(INetworkStream stream, TwitchAuthenticationDetails authentication)
         {
-            if (string.IsNullOrEmpty(username))
-                throw new ArgumentNullException(nameof(username));
-            if (string.IsNullOrEmpty(channel))
-                throw new ArgumentNullException(nameof(channel));
-            if (password == null || password.Length == 0)
-                throw new ArgumentNullException(nameof(password));
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+            if (string.IsNullOrEmpty(authentication.Username))
+                throw new ArgumentException(nameof(authentication.Username));
+            if (string.IsNullOrEmpty(authentication.Password))
+                throw new ArgumentException(nameof(authentication.Password));
+            if (string.IsNullOrEmpty(authentication.Channel))
+                throw new ArgumentException(nameof(authentication.Channel));
 
-            Username = username;
+            Username = authentication.Username;
 
             // Channel names are lower case on twitch.
-            channel = channel.Trim().ToLowerInvariant();
-            if (!channel.StartsWith("#"))
+            Channel = authentication.Channel.Trim().ToLowerInvariant();
+            if (!Channel.StartsWith("#"))
             {
-                channel = "#" + channel.ToLowerInvariant();
+                Channel = "#" + Channel.ToLowerInvariant();
             }
-
-            Channel = channel;
 
             try
             {
-                client = new TcpClient("irc.chat.twitch.tv", 6667);
-                reader = new StreamReader(client.GetStream());
-                writer = new StreamWriter(client.GetStream());
+                networkStream = stream;
+                reader = new StreamReader(networkStream.BaseStream);
+                writer = new StreamWriter(networkStream.BaseStream);
 
-                Command("PASS {0}", password);
-                Command("NICK {0}", username.ToLowerInvariant());
-                Command("JOIN {0}", channel);
+                Command("PASS {0}", authentication.Password);
+                Command("NICK {0}", Username.ToLowerInvariant());
+                Command("JOIN {0}", Channel);
                 Command("CAP REQ :twitch.tv/membership");
                 Command("CAP REQ :twitch.tv/commands");
                 Command("CAP REQ :twitch.tv/tags");
@@ -78,10 +77,10 @@ namespace DiabloSpeech.Business.Twitch
         {
             if (disposing)
             {
-                if (client != null)
+                if (networkStream != null)
                 {
-                    client.Close();
-                    client = null;
+                    networkStream.Close();
+                    networkStream = null;
                 }
             }
         }
@@ -96,6 +95,9 @@ namespace DiabloSpeech.Business.Twitch
 
         public void Command(string command)
         {
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
             // No newlines in a single command.
             command = command.Replace("\n", "");
 
@@ -112,6 +114,10 @@ namespace DiabloSpeech.Business.Twitch
 
         public void Send(string message)
         {
+            // Ignore empty messages.
+            if (string.IsNullOrEmpty(message))
+                return;
+
             Command("PRIVMSG {0} :{1}", Channel, message);
             Flush();
         }

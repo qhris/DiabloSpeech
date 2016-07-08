@@ -121,12 +121,17 @@ namespace DiabloSpeech
             if (!ValidatePasswordBox(autenticationBox))
                 return;
 
+            var auth = new TwitchAuthenticationDetails()
+            {
+                Username = usernameTextBox.Text,
+                Password = autenticationBox.Password,
+                Channel = channelTextBox.Text
+            };
+
             try
             {
-                var connection = new TwitchChannelConnection(
-                    usernameTextBox.Text,
-                    channelTextBox.Text,
-                    autenticationBox.Password);
+                var stream = new NetworkStreamTcpAdapter("irc.chat.twitch.tv", 6667);
+                var connection = new TwitchChannelConnection(stream, auth);
                 SaveSettings(Settings.Default);
 
                 (new ChatBotWindow(connection)).Show();
