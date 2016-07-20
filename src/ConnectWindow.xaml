@@ -4,19 +4,58 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiabloSpeech"
+        xmlns:viewModel="clr-namespace:DiabloSpeech.ViewModel"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         FocusManager.FocusedElement="{Binding ElementName=usernameTextBox}"
-        Title="Connect" Height="220" Width="366.667" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" ResizeMode="NoResize">
+        Title="Connect" Height="220" Width="366.667" Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <viewModel:ConnectViewModel/>
+    </Window.DataContext>
     <Grid>
         <Label x:Name="usernameLabel" Content="Username:" HorizontalAlignment="Left" Margin="40,14,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="authenticationLabel" Content="Authentication:" HorizontalAlignment="Left" Margin="16,76,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="usernameTextBox" Height="23" Margin="111,17,17,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="1"/>
-        <PasswordBox x:Name="autenticationBox" Margin="111,79,17,0" VerticalAlignment="Top" Height="23" TabIndex="3"/>
-        <Button x:Name="connectButton" Content="Connect" Margin="192,0,92,10" Height="22" VerticalAlignment="Bottom" Click="connectButton_Click" TabIndex="4"/>
-        <Button x:Name="exitButton" Content="Exit" Margin="274,0,10,10" Height="22" VerticalAlignment="Bottom" Click="exitButton_Click" TabIndex="5"/>
+        <TextBox x:Name="usernameTextBox"
+                 Text="{Binding Path=Username, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                 Height="23"
+                 Margin="111,17,17,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 TabIndex="1"/>
         <Label x:Name="channelLabel" Content="Channel:" HorizontalAlignment="Left" Margin="50,45,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="channelTextBox" Height="23" Margin="111,48,17,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="2"/>
-        <CheckBox x:Name="rememberCheckBox" Content="Remember me" HorizontalAlignment="Left" Margin="111,116,0,0" VerticalAlignment="Top" Checked="rememberCheckBox_Checked"/>
+        <TextBox x:Name="channelTextBox"
+                 Text="{Binding Path=Channel, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+                 Height="23"
+                 Margin="111,48,17,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 TabIndex="2"/>
+        <Label x:Name="authenticationLabel" Content="Authentication:" HorizontalAlignment="Left" Margin="16,76,0,0" VerticalAlignment="Top"/>
+        <PasswordBox x:Name="authenticationBox"
+                     local:PasswordBinder.EncryptedPassword="{Binding Path=AuthToken, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="111,79,17,0"
+                     VerticalAlignment="Top"
+                     Height="23"
+                     TabIndex="3" PasswordChanged="authenticationBox_PasswordChanged"/>
+        <CheckBox x:Name="rememberCheckBox"
+                  IsChecked="{Binding Path=RememberSettings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Content="Remember me"
+                  HorizontalAlignment="Left"
+                  Margin="111,116,0,0"
+                  VerticalAlignment="Top"/>
+        <Button x:Name="connectButton"
+                IsEnabled="{Binding Path=IsValid}"
+                Command="{Binding Path=LoginCommand}"
+                Content="Connect"
+                Margin="192,0,92,10"
+                Height="22"
+                VerticalAlignment="Bottom"
+                TabIndex="4"/>
+        <Button x:Name="exitButton"
+                Command="{Binding Path=CloseCommand}"
+                Content="Exit"
+                Margin="274,0,10,10"
+                Height="22"
+                VerticalAlignment="Bottom"
+                TabIndex="5"/>
     </Grid>
 </Window>

@@ -63,6 +63,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\SecureStringExtensions.cs" />
+    <Compile Include="PasswordBinder.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel\ConnectViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="ChatBotWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +90,7 @@
     <Compile Include="Business\Chat\Commands\WorldRecordChatCommand.cs" />
     <Compile Include="Business\Chat\IChatCommand.cs" />
     <Compile Include="Business\Chat\IChatWriter.cs" />
+    <Compile Include="Business\ProtectedString.cs" />
     <Compile Include="Business\Speedrun\GameRecord.cs" />
     <Compile Include="Business\Speedrun\LeaderboardRun.cs" />
     <Compile Include="Business\Speedrun\SpeedrunClient.cs" />
