@@ -1,6 +1,6 @@
 ﻿# Project ignore files
-/src/bin
-/src/obj
+/src/*/bin
+/src/*/obj
 /src/.vs
 /tests/bin
 /tests/obj

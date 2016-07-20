@@ -12,9 +12,10 @@ var configuration = Argument("configuration", "Release");
 ///////////////////////////////////////
 // PATHS
 ///////////////////////////////////////
-var assemblyInfoPath = File("./src/Properties/AssemblyInfo.cs");
+var assemblyInfoPath = File("./src/DiabloSpeech/Properties/AssemblyInfo.cs");
 var solutionPath = File("./src/DiabloSpeech.sln");
-var buildDirectory = Directory("./src/bin") + Directory(configuration);
+var coreBuildDirectory = Directory("./src/DiabloSpeech.Core/bin") + Directory(configuration);
+var buildDirectory = Directory("./src/DiabloSpeech/bin") + Directory(configuration);
 var testPath = Directory("./tests/bin") + Directory(configuration) + File("tests.dll");
 var stagingDirectory = Directory("./staging");
 var packageBuildsDirectory = Directory("./builds");
@@ -31,6 +32,7 @@ Task("Clean")
 {
     CleanDirectory(buildDirectory);
     CleanDirectory(stagingDirectory);
+    CleanDirectory(coreBuildDirectory);
     EnsureDirectoryExists(packageBuildsDirectory);
 });
 

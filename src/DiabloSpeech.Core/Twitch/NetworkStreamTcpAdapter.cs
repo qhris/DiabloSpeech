@@ -1,18 +1,23 @@
 ﻿// This file is a part of DiabloSpeech and is under the MIT license.
 // See the LICENSE file at the root of the project for more information.
-using DiabloSpeech.Core.Twitch;
 using System;
 using System.IO;
+using System.Net.Sockets;
 
-namespace Tests.Twitch.Mocks
+namespace DiabloSpeech.Core.Twitch
 {
-    public class NetworkStreamMock : INetworkStream
+    public class NetworkStreamTcpAdapter : INetworkStream
     {
-        public Stream BaseStream { get; private set; }
+        TcpClient client;
 
-        public NetworkStreamMock(Stream stream)
+        public NetworkStreamTcpAdapter(string hostname, int port)
         {
-            BaseStream = stream;
+            client = new TcpClient(hostname, port);
+        }
+
+        public Stream BaseStream
+        {
+            get { return client.GetStream(); }
         }
 
         public void Close()
@@ -30,11 +35,8 @@ namespace Tests.Twitch.Mocks
         {
             if (disposing)
             {
-                if (BaseStream != null)
-                {
-                    BaseStream.Close();
-                    BaseStream = null;
-                }
+                client.Close();
+                client = null;
             }
         }
     }

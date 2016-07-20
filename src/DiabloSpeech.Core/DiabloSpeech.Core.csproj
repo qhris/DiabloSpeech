@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D1A70A70-FD0A-4CA2-8B6B-374EBCBDF852}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DiabloSpeech.Core</RootNamespace>
+    <AssemblyName>DiabloSpeech.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chat\ChatCommandData.cs" />
+    <Compile Include="Chat\ChatCommandFactory.cs" />
+    <Compile Include="Chat\ChatCommandInfo.cs" />
+    <Compile Include="Chat\CommandAliasAttribute.cs" />
+    <Compile Include="Chat\Commands\BreakpointsChatCommand.cs" />
+    <Compile Include="Chat\Commands\DiabloClassHelper.cs" />
+    <Compile Include="Chat\Commands\EquipmentChatCommand.cs" />
+    <Compile Include="Chat\Commands\WorldRecordChatCommand.cs" />
+    <Compile Include="Chat\IChatCommand.cs" />
+    <Compile Include="Chat\IChatWriter.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\SecureStringExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\TaskExtensions.cs" />
+    <Compile Include="ProtectedString.cs" />
+    <Compile Include="Speedrun\GameRecord.cs" />
+    <Compile Include="Speedrun\LeaderboardRun.cs" />
+    <Compile Include="Speedrun\SpeedrunClient.cs" />
+    <Compile Include="TwitchChatWriter.cs" />
+    <Compile Include="Twitch\INetworkStream.cs" />
+    <Compile Include="Twitch\ITwitchChannelConnection.cs" />
+    <Compile Include="Twitch\ITwitchCommandProcessor.cs" />
+    <Compile Include="Twitch\NetworkStreamTcpAdapter.cs" />
+    <Compile Include="Twitch\Processors\JoinCommandProcessor.cs" />
+    <Compile Include="Twitch\Processors\MessageCommandProcessor.cs" />
+    <Compile Include="Twitch\Processors\PingCommandProcessor.cs" />
+    <Compile Include="Twitch\Processors\UserStateCommandProcessor.cs" />
+    <Compile Include="Twitch\TwitchAuthenticationDetails.cs" />
+    <Compile Include="Twitch\TwitchChannelConnection.cs" />
+    <Compile Include="Twitch\TwitchChatMessage.cs" />
+    <Compile Include="Twitch\TwitchClient.cs" />
+    <Compile Include="Twitch\TwitchMessageData.cs" />
+    <Compile Include="Twitch\TwitchMessageParser.cs" />
+    <Compile Include="Twitch\TwitchUser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dependencies\DiabloInterfaceAPI\DiabloInterfaceAPI.csproj">
+      <Project>{6c5fe104-50ef-47bd-85ac-4e4fab37243e}</Project>
+      <Name>DiabloInterfaceAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

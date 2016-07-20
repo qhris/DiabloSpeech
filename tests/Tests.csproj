@@ -82,9 +82,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\DiabloSpeech.csproj">
-      <Project>{5b3df163-cd50-4bfe-b449-6d5f30765cea}</Project>
-      <Name>DiabloSpeech</Name>
+    <ProjectReference Include="..\src\DiabloSpeech.Core\DiabloSpeech.Core.csproj">
+      <Project>{d1a70a70-fd0a-4ca2-8b6b-374ebcbdf852}</Project>
+      <Name>DiabloSpeech.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

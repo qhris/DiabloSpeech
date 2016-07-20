@@ -1,7 +1,7 @@
 ﻿// This file is a part of DiabloSpeech and is under the MIT license.
 // See the LICENSE file at the root of the project for more information.
-using DiabloSpeech.Business.Twitch;
-using DiabloSpeech.Business.Twitch.Processors;
+using DiabloSpeech.Core.Twitch;
+using DiabloSpeech.Core.Twitch.Processors;
 using NUnit.Framework;
 using Tests.Twitch.Mocks;
 
