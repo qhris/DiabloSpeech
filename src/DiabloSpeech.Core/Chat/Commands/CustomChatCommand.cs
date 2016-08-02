@@ -103,6 +103,7 @@ namespace DiabloSpeech.Core.Chat.Commands
             }
             else
             {
+                subCommand = subCommand.TrimStart('!');
                 CommandCollection.RemoveSubCommand(command, subCommand);
                 chat.SendMessage($"Removed sub command '{command} {subCommand}'.");
             }

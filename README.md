@@ -9,12 +9,23 @@ A twitch chat bot for Diablo 2 streamers.
 
 - Ability for users to request item information while running [DiabloInterface](https://github.com/Zutatensuppe/DiabloInterface/).
 - Request leaderboard information directly from [speedrun.com](http://www.speedrun.com/d2lod).
+- Add and remove custom commands.
 
 ### Commands
 
 - `!wr [class]`: Show [speedrun.com](http://www.speedrun.com/d2lod) leaderboards for class.
 - `!item [location]`: Query DiabloInterface for equipped item stats.
-- `!breakpoints [type] [class]`: Show breakpoints for class `fcr/fhr`.
+
+### Custom Commands
+
+Ability to add/remove custom text commands.
+
+- `!cmd add test this is some text to be added.` Adds the command `test`.
+- `!cmd remove test` Removes the command `test` with its subcommands.
+- `!cmd add test !two this is test number two.` Adds the subcommand `test two`.
+- `!cmd remove test two` Removes the subcommand `test two`. Base command `test` is still kept.
+
+Commands are automatically saved when edited in `commands.json`.
 
 ## Building
 
