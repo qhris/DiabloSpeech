@@ -7,15 +7,15 @@
         mc:Ignorable="d"
         Title="Diablo Speech" Height="357.333" Width="557.333" Closing="Window_Closing">
     <Grid>
-        <RichTextBox x:Name="messageLog" HorizontalAlignment="Left" Margin="10,10,0,38" Width="400" IsReadOnly="True" VerticalScrollBarVisibility="Visible" FontFamily="Open Sans">
+        <RichTextBox x:Name="messageLog" Margin="10,10,10,38" IsReadOnly="True" VerticalScrollBarVisibility="Visible" FontFamily="Open Sans">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0"/>
                 </Style>
             </RichTextBox.Resources>
         </RichTextBox>
-        <TextBox x:Name="messageBox" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Width="320" Height="23" VerticalAlignment="Bottom" TabIndex="1" KeyDown="messageBox_KeyDown"/>
-        <Button x:Name="sendMessageButton" Content="Send" HorizontalAlignment="Left" Margin="335,0,0,10" Width="75" Height="22" VerticalAlignment="Bottom" Click="sendMessageButton_Click"/>
+        <TextBox x:Name="messageBox" Margin="10,0,90,10" TextWrapping="Wrap" Height="23" VerticalAlignment="Bottom" TabIndex="1" KeyDown="messageBox_KeyDown"/>
+        <Button x:Name="sendMessageButton" Content="Send" Margin="0,0,10,10" Height="22" VerticalAlignment="Bottom" Click="sendMessageButton_Click" HorizontalAlignment="Right" Width="75"/>
 
     </Grid>
 </Window>

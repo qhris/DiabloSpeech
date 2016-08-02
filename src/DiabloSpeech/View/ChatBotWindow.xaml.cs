@@ -50,9 +50,16 @@ namespace DiabloSpeech
             // Initialize business logic.
             InitializeTwitchClient();
             InitializeChatCommands();
+            SetWindowTitleVersion();
+        }
 
-            // Disable messaging until we joined a room.
-            MessagingEnabled(false);
+        void SetWindowTitleVersion()
+        {
+            // Set window title.
+            var assembly = System.Reflection.Assembly.GetEntryAssembly();
+            var version = assembly.GetName().Version;
+
+            Title = $"Diablo Speech {version.Major}.{version.Minor}.{version.Build}";
         }
 
         void MessagingEnabled(bool enabled)
