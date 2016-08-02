@@ -33,18 +33,23 @@ namespace DiabloSpeech
         List<Run> uncoloredNames = new List<Run>();
         Dictionary<string, IChatCommand> chatCommands;
         CustomCommandCollection commandCollection;
+        string channelName;
 
-        public ChatBotWindow(ITwitchChannelConnection connection)
+        public ChatBotWindow(TwitchClient client)
         {
-            if (connection == null)
-                throw new ArgumentNullException(nameof(connection));
+            if (client == null)
+                throw new ArgumentNullException(nameof(client));
+            this.client = client;
+            channelName = client.Connection.Channel;
 
             InitializeComponent();
-            InitializeTwitchClient(connection);
-            InitializeChatCommands();
 
             // Clear out text in message log.
             messageLog.Document.Blocks.Clear();
+
+            // Initialize business logic.
+            InitializeTwitchClient();
+            InitializeChatCommands();
 
             // Disable messaging until we joined a room.
             MessagingEnabled(false);
@@ -70,36 +75,31 @@ namespace DiabloSpeech
             File.WriteAllText(CommandCollectionFilename, json, Encoding.UTF8);
         }
 
-        void InitializeTwitchClient(ITwitchChannelConnection connection)
+        void InitializeTwitchClient()
         {
-            client = new TwitchClient(connection);
-            client.Connected += () => {
-                var inlines = new List<Inline>();
-                inlines.Add(new Bold(new Run($"Successfully connected to channel {connection.Channel}.")));
-                LogMessage(inlines);
+            var inlines = new List<Inline>();
+            inlines.Add(new Bold(new Run($"Successfully connected to channel {channelName}.")));
+            LogMessage(inlines);
 
-                client.Connection.Send("/me > started.");
+            client.Connection.Send("/me > started.");
 
-                MessagingEnabled(true);
-                client.MessageReceived += client_MessageReceived;
-                client.AcquireUserState += client_StateAcquired;
+            MessagingEnabled(true);
+            client.MessageReceived += client_MessageReceived;
+            client.AcquireUserState += client_StateAcquired;
+
 #if DEBUG
-                client.UnhandledMessage += message => {
-                    Console.WriteLine("Unhandled message: " + message.Raw);
-                };
-#endif
+            client.UnhandledMessage += message => {
+                Console.WriteLine("Unhandled message: " + message.Raw);
             };
+#endif
 
             client.Disconnected += () => {
-                var inlines = new List<Inline>();
-                inlines.Add(new Bold(new Run($"Lost connection to channel {connection.Channel}.")));
+                inlines = new List<Inline>();
+                inlines.Add(new Bold(new Run($"Lost connection to channel {channelName}.")));
                 LogMessage(inlines);
 
                 MessagingEnabled(false);
             };
-
-            // Finally start the client task.
-            client.Start();
         }
 
         void InitializeChatCommands()

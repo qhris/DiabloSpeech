@@ -52,7 +52,8 @@ namespace DiabloSpeech.ViewModel
         protected void OnErrorsChanged(string propertyName) =>
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
 
-        public bool IsValid => !HasErrors && changedProperties.All(x => x.Value);
+        public bool IsAllPropertiesChanged => changedProperties.All(x => x.Value);
+        public bool IsValid => !HasErrors && IsAllPropertiesChanged;
         public bool HasErrors => errors.Count > 0;
         public IEnumerable GetErrors(string propertyName) =>
             errors.ValueOrDefault(propertyName);

@@ -57,6 +57,19 @@ namespace DiabloSpeech.ViewModel
             set { SetField(ref authToken, value); }
         }
 
+        bool isBusy = false;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                Mouse.OverrideCursor = value ? Cursors.Wait : null;
+                SetField(ref isBusy, value);
+            }
+        }
+
+        public bool CanConnect => !HasErrors && !IsBusy && IsAllPropertiesChanged;
+
         #endregion
 
         #region Constructor
@@ -72,6 +85,12 @@ namespace DiabloSpeech.ViewModel
             RegisterValidator(nameof(Username), StringValidation(minLength: 3));
             RegisterValidator(nameof(Channel), StringValidation(minLength: 3));
             RegisterValidator(nameof(AuthToken), SecureStringValidation(minLength: 3));
+
+            // Dirty fix for updating CanConnect.
+            PropertyChanged += (s, e) => {
+                if (e.PropertyName != nameof(CanConnect))
+                    OnPropertyChanged(nameof(CanConnect));
+            };
 
             CloseCommand = new RelayCommand(param => Close());
             LoginCommand = new RelayCommand(param => Login());
@@ -156,6 +175,13 @@ namespace DiabloSpeech.ViewModel
             CloseRequested?.Invoke();
         }
 
+        void DisplayLoginError()
+        {
+            IsBusy = false;
+            MessageBox.Show("Failed to connect to server, make sure you entered the correct username and authentication key.",
+    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
         public void Login()
         {
             var auth = new TwitchAuthenticationDetails()
@@ -169,10 +195,19 @@ namespace DiabloSpeech.ViewModel
             {
                 var stream = new NetworkStreamTcpAdapter("irc.chat.twitch.tv", 6667);
                 var connection = new TwitchChannelConnection(stream, auth);
+                var client = new TwitchClient(connection);
+
                 Save();
 
-                (new ChatBotWindow(connection)).Show();
-                Close();
+                IsBusy = true;
+                client.Disconnected += DisplayLoginError;
+                client.Connected += () => {
+                    IsBusy = false;
+                    client.Disconnected -= DisplayLoginError;
+                    (new ChatBotWindow(client)).Show();
+                    Close();
+                };
+                client.Start();
             }
             catch (Exception ex)
             {

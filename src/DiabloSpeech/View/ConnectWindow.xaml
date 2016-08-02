@@ -43,7 +43,7 @@
                   Margin="111,116,0,0"
                   VerticalAlignment="Top"/>
         <Button x:Name="connectButton"
-                IsEnabled="{Binding Path=IsValid}"
+                IsEnabled="{Binding CanConnect}"
                 Command="{Binding Path=LoginCommand}"
                 Content="Connect"
                 Margin="192,0,92,10"
