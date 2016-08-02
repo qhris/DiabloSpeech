@@ -51,9 +51,12 @@
     <Compile Include="Chat\ChatCommandFactory.cs" />
     <Compile Include="Chat\ChatCommandInfo.cs" />
     <Compile Include="Chat\CommandAliasAttribute.cs" />
-    <Compile Include="Chat\Commands\BreakpointsChatCommand.cs" />
+    <Compile Include="Chat\Commands\CustomChatCommand.cs" />
     <Compile Include="Chat\Commands\DiabloClassHelper.cs" />
     <Compile Include="Chat\Commands\EquipmentChatCommand.cs" />
+    <Compile Include="Chat\Data\CustomChatCommand.cs" />
+    <Compile Include="Chat\Data\CustomCommandCollection.cs" />
+    <Compile Include="Chat\Data\ICustomCommandProcessor.cs" />
     <Compile Include="Chat\Commands\WorldRecordChatCommand.cs" />
     <Compile Include="Chat\IChatCommand.cs" />
     <Compile Include="Chat\IChatWriter.cs" />

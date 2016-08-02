@@ -1,0 +1,53 @@
+﻿{
+	"Commands":
+	{
+		"fcr":
+		{
+			"Name": "fcr",
+			"Text": "Usage: !fcr <class>.",
+			"Subcommands":
+			{
+				"amazon": "Amazon breakpoints: [0 7 14 22 32 48 68 99 152]",
+				"ama": "Amazon breakpoints: [0 7 14 22 32 48 68 99 152]",
+				"assassin": "Assassin breakpoints: [0 8 16 27 42 65 102 174]",
+				"assa": "Assassin breakpoints: [0 8 16 27 42 65 102 174]",
+				"sin": "Assassin breakpoints: [0 8 16 27 42 65 102 174]",
+				"barbarian": "Barbarian breakpoints: [0 9 20 37 63 105 200]",
+				"barb": "Barbarian breakpoints: [0 9 20 37 63 105 200]",
+				"druid": "Druid breakpoints: [0 4 10 19 30 46 68 99 163]",
+				"dudu": "Druid breakpoints: [0 4 10 19 30 46 68 99 163]",
+				"necromancer": "Necromancer breakpoints: [0 9 18 30 48 75 125]",
+				"necro": "Necromancer breakpoints: [0 9 18 30 48 75 125]",
+				"paladin": "Paladin breakpoints: [0 9 18 30 48 75 125]",
+				"pally": "Paladin breakpoints: [0 9 18 30 48 75 125]",
+				"pala": "Paladin breakpoints: [0 9 18 30 48 75 125]",
+				"sorceress": "Sorceress breakpoints: [0 9 20 37 63 105 200]",
+				"sorc": "Sorceress breakpoints: [0 9 20 37 63 105 200]"
+			}
+		},
+		"fhr":
+		{
+			"Name": "fhr",
+			"Text": "Usage: !fhr <class>.",
+			"Subcommands":
+			{
+				"amazon": "Amazon breakpoints: [0 6 13 20 32 52 86 174 600]",
+				"ama": "Amazon breakpoints: [0 6 13 20 32 52 86 174 600]",
+				"assassin": "Assassin breakpoints: [0 7 15 27 48 86 200]",
+				"assa": "Assassin breakpoints: [0 7 15 27 48 86 200]",
+				"sin": "Assassin breakpoints: [0 7 15 27 48 86 200]",
+				"barbarian": "Barbarian breakpoints: [0 7 15 27 48 86 200]",
+				"barb": "Barbarian breakpoints: [0 7 15 27 48 86 200]",
+				"druid": "Druid breakpoints: [0 5 10 16 26 39 56 86 152 360]",
+				"dudu": "Druid breakpoints: [0 5 10 16 26 39 56 86 152 360]",
+				"necromancer": "Necromancer breakpoints: [0 5 10 16 26 39 56 86 152 377]",
+				"necro": "Necromancer breakpoints: [0 5 10 16 26 39 56 86 152 377]",
+				"paladin": "Paladin breakpoints: [0 7 15 27 48 86 200]",
+				"pally": "Paladin breakpoints: [0 7 15 27 48 86 200]",
+				"pala": "Paladin breakpoints: [0 7 15 27 48 86 200]",
+				"sorceress": "Sorceress breakpoints: [0 5 9 14 20 30 42 60 86 142 280]",
+				"sorc": "Sorceress breakpoints: [0 5 9 14 20 30 42 60 86 142 280]"
+			}
+		}
+	}
+}

@@ -11,6 +11,8 @@ namespace DiabloSpeech.Core.Chat.Commands
     [CommandAlias("wr", "record", "records")]
     class WorldRecordChatCommand : IChatCommand
     {
+        public bool IsModeratorCommand { get { return false; } }
+
         public async Task Process(IChatWriter chat, ChatCommandData data)
         {
             if (data.Arguments.Count == 0)

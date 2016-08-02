@@ -6,6 +6,7 @@ namespace DiabloSpeech.Core.Chat
 {
     public interface IChatCommand
     {
+        bool IsModeratorCommand { get; }
         Task Process(IChatWriter chat, ChatCommandData data);
     }
 }

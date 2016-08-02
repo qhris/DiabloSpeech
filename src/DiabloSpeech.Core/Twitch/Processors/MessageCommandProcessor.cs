@@ -2,6 +2,7 @@
 // See the LICENSE file at the root of the project for more information.
 using DiabloSpeech.Extensions;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
 
@@ -47,7 +48,11 @@ namespace DiabloSpeech.Core.Twitch.Processors
             try { color = (Color)ColorConverter.ConvertFromString(colorText); }
             catch (FormatException) { }
 
-            var user = new TwitchUser(name, color);
+            // Check for moderator status.
+            bool moderator = data.Tags.ValueOrDefault("mod") == "1";
+            moderator |= data.Tags.ValueOrDefault("badges")?.Contains("broadcaster") ?? false;
+
+            var user = new TwitchUser(name, moderator, color);
             OnMessageReceived(new TwitchChatMessage(type, user, message));
         }
 

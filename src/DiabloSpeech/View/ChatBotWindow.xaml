@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiabloSpeech"
         mc:Ignorable="d"
-        Title="ChatBotWindow" Height="357.333" Width="557.333" Closing="Window_Closing">
+        Title="Diablo Speech" Height="357.333" Width="557.333" Closing="Window_Closing">
     <Grid>
         <RichTextBox x:Name="messageLog" HorizontalAlignment="Left" Margin="10,10,0,38" Width="400" IsReadOnly="True" VerticalScrollBarVisibility="Visible" FontFamily="Open Sans">
             <RichTextBox.Resources>

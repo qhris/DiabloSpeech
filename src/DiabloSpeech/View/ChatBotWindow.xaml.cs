@@ -2,10 +2,15 @@
 // See the LICENSE file at the root of the project for more information.
 using DiabloSpeech.Core;
 using DiabloSpeech.Core.Chat;
+using DiabloSpeech.Core.Chat.Commands;
+using DiabloSpeech.Core.Chat.Data;
 using DiabloSpeech.Core.Twitch;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
@@ -17,14 +22,17 @@ namespace DiabloSpeech
     /// </summary>
     public partial class ChatBotWindow : Window
     {
+        const string CommandCollectionFilename = "commands.json";
+
         TwitchClient client;
 
         public int MaxLogMessageCount { get; } = 100;
-        public int CommandTimeoutSeconds { get; } = 10;
+        public int CommandTimeoutSeconds { get; } = 5;
         DateTime nextCommandTime = DateTime.Now;
         TwitchUser clientUser = null;
         List<Run> uncoloredNames = new List<Run>();
         Dictionary<string, IChatCommand> chatCommands;
+        CustomCommandCollection commandCollection;
 
         public ChatBotWindow(ITwitchChannelConnection connection)
         {
@@ -46,6 +54,20 @@ namespace DiabloSpeech
         {
             sendMessageButton.IsEnabled = enabled;
             messageBox.IsEnabled = enabled;
+        }
+
+        CustomCommandCollection LoadCustomCommands()
+        {
+            if (!File.Exists(CommandCollectionFilename))
+                return new CustomCommandCollection();
+            string json = File.ReadAllText(CommandCollectionFilename, Encoding.UTF8);
+            return JsonConvert.DeserializeObject<CustomCommandCollection>(json);
+        }
+
+        void SaveCustomCommands(CustomCommandCollection collection)
+        {
+            string json = JsonConvert.SerializeObject(collection, Formatting.Indented);
+            File.WriteAllText(CommandCollectionFilename, json, Encoding.UTF8);
         }
 
         void InitializeTwitchClient(ITwitchChannelConnection connection)
@@ -83,10 +105,17 @@ namespace DiabloSpeech
         void InitializeChatCommands()
         {
             chatCommands = new Dictionary<string, IChatCommand>();
+            commandCollection = LoadCustomCommands();
+            commandCollection.CollectionModified += () =>
+                SaveCustomCommands(commandCollection);
 
             var commandMappings = ChatCommandFactory.BuildFromReflection();
             foreach (var commandInfo in commandMappings)
             {
+                var customProcessor = commandInfo.Instance as ICustomCommandProcessor;
+                if (customProcessor != null)
+                    customProcessor.CommandCollection = commandCollection;
+
                 foreach (var alias in commandInfo.Aliases)
                 {
                     if (chatCommands.ContainsKey(alias))
@@ -135,6 +164,14 @@ namespace DiabloSpeech
             HandleCommand(message);
         }
 
+        bool HandleCommandCooldown(TwitchChatMessage message)
+        {
+            if (message.User.IsModerator) return true;
+            if (DateTime.Now < nextCommandTime) return false;
+            nextCommandTime = DateTime.Now + TimeSpan.FromSeconds(CommandTimeoutSeconds);
+            return true;
+        }
+
         void HandleCommand(TwitchChatMessage message)
         {
             string text = message.Text.Trim();
@@ -167,13 +204,26 @@ namespace DiabloSpeech
             IChatCommand chatCommand;
             if (chatCommands.TryGetValue(command, out chatCommand))
             {
+                // Restrict moderator commands.
+                if (chatCommand.IsModeratorCommand && !message.User.IsModerator)
+                    return;
+
                 // Found the chat command, all valid command have a cooldown.
-                if (DateTime.Now < nextCommandTime) return;
-                nextCommandTime = DateTime.Now + TimeSpan.FromSeconds(CommandTimeoutSeconds);
+                if (!HandleCommandCooldown(message)) return;
 
                 // Do invidual chat command handling.
                 var chatWriter = new TwitchChatWriter(client.Connection);
                 chatCommand.Process(chatWriter, commandData);
+            }
+            else if (commandCollection.ContainsCommand(command))
+            {
+                // Found the chat command, all valid command have a cooldown.
+                if (!HandleCommandCooldown(message)) return;
+
+                // Fall back to custom commands if no hard-coded commands are found.
+                if (arguments.Count > 0 && commandCollection.ContainsSubCommand(command, arguments[0]))
+                    client.Connection.Send(commandCollection.Commands[command].Subcommands[arguments[0]]);
+                else client.Connection.Send(commandCollection.Commands[command].Text);
             }
         }
 

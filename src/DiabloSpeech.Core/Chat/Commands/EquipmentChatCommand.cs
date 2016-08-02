@@ -13,6 +13,8 @@ namespace DiabloSpeech.Core.Chat.Commands
     {
         const string ServerName = "DiabloInterfaceItems";
 
+        public bool IsModeratorCommand { get { return false; } }
+
         public async Task Process(IChatWriter chat, ChatCommandData data)
         {
             if (data.Arguments.Count == 0)
@@ -37,6 +39,11 @@ namespace DiabloSpeech.Core.Chat.Commands
             {
                 chat.SendMessage("Failed to get a response from item server!");
                 return;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Unexpected exception: {0}", e);
+                throw;
             }
 
             if (!response.IsValid)
@@ -65,6 +72,7 @@ namespace DiabloSpeech.Core.Chat.Commands
 
         async Task<ItemResponse> QueryItem(ItemRequest.Slot itemSlot)
         {
+            Console.WriteLine("Requesting item from server...");
             using (var connection = new DiabloInterfaceConnection(ServerName))
             {
                 return await connection.RequestAsync(new ItemRequest(itemSlot));

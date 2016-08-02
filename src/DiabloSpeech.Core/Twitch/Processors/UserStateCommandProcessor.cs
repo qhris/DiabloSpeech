@@ -29,7 +29,7 @@ namespace DiabloSpeech.Core.Twitch.Processors
             try { color = (Color)ColorConverter.ConvertFromString(colorText); }
             catch (FormatException) { }
 
-            var user = new TwitchUser(name, color);
+            var user = new TwitchUser(name, true, color);
 
             OnAcquireUserState(user);
         }

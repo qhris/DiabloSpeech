@@ -6,18 +6,21 @@ namespace DiabloSpeech.Core.Twitch
 {
     public class TwitchUser
     {
-        public string Name { get; private set; }
+        public string Name { get; }
         public Color Color { get; set; }
+        public bool IsModerator { get; }
 
-        public TwitchUser(string name)
+        public TwitchUser(string name, bool moderator)
         {
             Name = name;
+            IsModerator = moderator;
             Color = Colors.Black;
         }
 
-        public TwitchUser(string name, Color color)
+        public TwitchUser(string name, bool moderator, Color color)
         {
             Name = name;
+            IsModerator = moderator;
             Color = color;
         }
     }

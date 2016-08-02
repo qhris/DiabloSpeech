@@ -20,6 +20,7 @@ var testPath = Directory("./tests/bin") + Directory(configuration) + File("tests
 var stagingDirectory = Directory("./staging");
 var packageBuildsDirectory = Directory("./builds");
 var dependencies = "./dependencies/**/*.sln";
+var dataDirectory = Directory("./data");
 
 ///////////////////////////////////////
 // TASKS
@@ -70,7 +71,12 @@ Task("Copy-Files")
 {
     var path = buildDirectory.ToString();
     var files = GetFiles(path + "/*.exe")
-              + GetFiles(path + "/*.dll");
+              + GetFiles(path + "/*.dll")
+              + GetFiles(path + "/*.ico");
+    CopyFiles(files, stagingDirectory);
+
+    // Copy data directory files.
+    files = GetFiles(dataDirectory.ToString() + "/**/*");
     CopyFiles(files, stagingDirectory);
 });
 
